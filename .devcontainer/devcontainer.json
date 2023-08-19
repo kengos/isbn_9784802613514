@@ -22,6 +22,8 @@
           "editor.insertSpaces": true
         },
         "[python]": {
+          "editor.formatOnSave": true,
+          "editor.tabSize": 4,
           "diffEditor.ignoreTrimWhitespace": false,
           "editor.formatOnType": true,
           "editor.wordBasedSuggestions": true
