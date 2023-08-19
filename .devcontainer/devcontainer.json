@@ -1,0 +1,21 @@
+{
+  "name": "rust-python-app",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "app",
+  "shutdownAction": "stopCompose",
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "mosapride.zenkaku"
+      ],
+      "settings": {
+        "files.eol": "\n",
+        "editor.renderWhitespace": "all",
+        "editor.trimAutoWhitespace": true
+      }
+    }
+  }
+}
