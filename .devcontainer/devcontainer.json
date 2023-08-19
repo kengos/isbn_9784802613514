@@ -9,12 +9,23 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "mosapride.zenkaku"
+        "mosapride.zenkaku",
+        "rust-lang.rust-analyzer",
+        "ms-python.python"
       ],
       "settings": {
         "files.eol": "\n",
         "editor.renderWhitespace": "all",
-        "editor.trimAutoWhitespace": true
+        "editor.trimAutoWhitespace": true,
+        "[rust]": {
+          "editor.tabSize": 4,
+          "editor.insertSpaces": true
+        },
+        "[python]": {
+          "diffEditor.ignoreTrimWhitespace": false,
+          "editor.formatOnType": true,
+          "editor.wordBasedSuggestions": true
+        }
       }
     }
   }

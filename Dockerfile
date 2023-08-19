@@ -1,11 +1,13 @@
-FROM python:3.11-slim-bookworm
+FROM rust:1.71-slim-bookworm
 
 RUN set -eux; \
   apt-get update; \
   apt-get install -y --no-install-recommends \
-  rustc \
+  python3 \
+  curl \
   ; \
-  rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/* ;
 
+RUN rustup component add rustfmt;
 WORKDIR /app
 EXPOSE 8888
