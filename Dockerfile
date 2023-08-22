@@ -6,7 +6,8 @@ RUN set -eux; \
   python3 \
   curl \
   ; \
-  rm -rf /var/lib/apt/lists/* ;
+  rm -rf /var/lib/apt/lists/* ; \
+  rustup component add rust-src ;
 
 RUN rustup component add rustfmt;
 WORKDIR /app
