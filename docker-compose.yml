@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     working_dir: /app
     volumes:
-      - ./:/app:cached
+      - ./:/app:delegated
     tty: true
     ports:
       - "${LOCAL_IP:-127.0.0.1}:8888:8888"
