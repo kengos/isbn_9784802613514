@@ -1,0 +1,12 @@
+[package]
+name = "kengos_test_rpn_calc"
+version = "0.1.0"
+edition = "2021"
+authors = ["kengos"]
+description = "ISBN: 9784802613514"
+license = "MIT"
+homepage = "https://github.com/kengos/isbn_9784802613514"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
