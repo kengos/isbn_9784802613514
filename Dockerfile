@@ -3,7 +3,8 @@ FROM rust:1.71-slim-bookworm
 RUN set -eux; \
   apt-get update; \
   apt-get install -y --no-install-recommends \
-  python3 \
+  python3-full \
+  python3-pip \
   curl \
   ; \
   rm -rf /var/lib/apt/lists/* ; \
