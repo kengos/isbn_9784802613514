@@ -1,5 +1,5 @@
+use crate::node::Node;
 use peg;
-use crate:node::Node;
 
 peg::parser! (pub grammar tomato() for str {
     pub rule parse() -> Vec<Node>
@@ -23,11 +23,11 @@ peg::parser! (pub grammar tomato() for str {
         = if_elif() / if_else() / if_true_only()
 
     rule if_elif() -> Node
-        = cond:calc() t:block() if() "elif" _ f:if_cond()
-        { Node::if_(cond, t, f) }
+        = cond:calc() t:block() lf() "elif" _ f:if_cond()
+        { Node::if_(cond, t, vec![f]) }
 
     rule if_else() -> Node
-        = cond:calc() t:block() if() "else" _ f:block()
+        = cond:calc() t:block() lf() "else" _ f:block()
         { Node::if_(cond, t, f) }
 
     rule if_true_only() -> Node
@@ -43,6 +43,44 @@ peg::parser! (pub grammar tomato() for str {
         { Node::For(w, start, end, Box::new(body)) }
 
     rule let() -> Node
-        = w:word _ "=" _ v:calc()
+        = w:word() _ "=" _ v:calc()
         { Node::SetVar(w, Box::new(v)) }
-})
+
+    rule calc() -> Node = comp()
+
+    rule comp() -> Node
+        = l:expr() "==" _ r:comp() { Node::calc('=', l, r) }
+        / l:expr() "!=" _ r:comp() { Node::calc('!', l, r) }
+        / l:expr() ">" _ r:comp() { Node::calc('>', l, r) }
+        / l:expr() ">=" _ r:comp() { Node::calc('g', l, r) }
+        / l:expr() "<" _ r:comp() { Node::calc('<', l, r) }
+        / l:expr() "<=" _ r:comp() { Node::calc('l', l, r) }
+        / l:expr()
+
+    rule expr() -> Node
+        = l:term() "+" _ r:calc() { Node::calc('+', l, r) }
+        / l:term() "-" _ r:calc() { Node::calc('-', l, r) }
+        / term()
+
+    rule term() -> Node
+        = l:val() "*" _ r:term() { Node::calc('*', l, r) }
+        / l:val() "/" _ r:term() { Node::calc('/', l, r) }
+        / l:val() "%" _ r:term() { Node::calc('%', l, r) }
+        / val()
+
+    rule val() -> Node
+        = "(" _ v:calc() _ ")" _ { v }
+        / v:number() _ { Node::Number(v) }
+        / v:word() _ { Node::GetVar(v) }
+
+    rule number() -> i64
+        = n:$(['0'..='9']+) { n.parse().unwrap() }
+
+    rule word() -> String
+        = v:$(['a'..='z'|'A'..='Z'|'_']+['0'..='9']*)
+        { String::from(v) }
+
+    rule end_of_line() = [';'|'\n']+ _ // 分の区切
+    rule lf() = _ ['\n']* _ // 改行
+    rule _ = [' '|'\t']* // 空白文字
+});
