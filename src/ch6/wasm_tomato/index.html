@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script type="module">
+    import init, { tomato_run } from "./pkg/wasm_tomato.js";
+    init().then(() => {
+      window.tomato_run = tomato_run;
+    });
+  </script>
+  <script type="text/javascript">
+    function run() {
+      if (!window.tomato_run) {
+        alert("WebAssemblyの読み込みが完了していません。");
+        return;
+      }
+
+      const code = document.getElementById("code").value;
+      const r = window.tomato_run(code);
+      const result = document.getElementById("result");
+      result.innerHTML = to_html(r);
+    }
+
+    function to_html(s) {
+      s = s.replace(/&/g, "&amp;");
+      s = s.replace(/</g, "&lt;");
+      s = s.replace(/>/g, "&gt;");
+      s = s.replace(/\n/g, "<br>\n");
+      return s;
+    }
+  </script>
+  <h1>tomato script</h1>
+  <div>
+    <textarea id="code" rows="8" cols="60"></textarea>
+    <br>
+    <button onclick="run()">実行</button>
+    <hr>
+    <div id="result"></div>
+  </div>
+</body>
+
+</html>
