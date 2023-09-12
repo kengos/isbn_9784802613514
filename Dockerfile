@@ -6,6 +6,8 @@ RUN set -eux; \
   python3-full \
   python3-pip \
   curl \
+  libssl-dev \
+  pkg-config \
   ; \
   rm -rf /var/lib/apt/lists/* ; \
   rustup component add rust-src ;
