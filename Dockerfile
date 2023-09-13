@@ -8,10 +8,13 @@ RUN set -eux; \
   curl \
   libssl-dev \
   pkg-config \
+  locales \
   ; \
   rm -rf /var/lib/apt/lists/* ; \
-  rustup component add rust-src ;
+  locale-gen ja_JP.UTF-8 ; \
+  localedef -f UTF-8 -i ja_JP ja_JP.UTF-8 ;
 
-RUN rustup component add rustfmt;
+RUN rustup component add rustfmt rust-src;
+ENV LANG=ja_JP.UTF-8
 WORKDIR /app
 EXPOSE 8888
