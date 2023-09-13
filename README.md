@@ -1,12 +1,28 @@
-## Crates
+# 手を動かして考えればよくわかる 高効率言語 Rust 書きかた・作りかた
 
-- https://docs.rs/pyo3/latest/pyo3/
+ISBN: 978-4-8026-1351-4
 
-## Python
+電子版発行日: 2022年3月25日 初版第1刷発行
 
-- cdll: https://docs.python.org/ja/3/library/ctypes.html
+Amazon: https://www.amazon.co.jp/dp/4802613512
 
-## Misprints
+写経期間: 2023/08/19 ~ 2023/09/13
+
+## 動かし方
+
+Visual Studio Code の Devcontainerで動作
+
+Docker Desktop | Rancher Desktop のどちらかまたは互換性のあるものをいれる
+
+## キーワード
+
+- python + rust
+  - pyo3: https://docs.rs/pyo3/latest/pyo3/
+  - cdll: https://docs.python.org/ja/3/library/ctypes.html
+- wasm
+  - wasm-pack / wasm-bindgen
+
+## 書籍上のミス等
 
 ### P.522
 
@@ -48,3 +64,7 @@ from ctypes import *
     }
 }
 ```
+
+### P.549
+
+block-modes等の最新版を入れると上手く動かないのでバージョンを書籍で指定されているものに固定
